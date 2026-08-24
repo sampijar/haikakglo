@@ -3,42 +3,121 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Photobox 📸</title>
+<title>Photobox 📸 · 80s Edition</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Monoton&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg1:#f6ead3;
-    --bg2:#f0d8b8;
     --ink:#3a2f28;
+    --neon-pink:#ff2e97;
+    --neon-cyan:#37e7ff;
+    --neon-gold:#ffd166;
+    --paper:#fffdf7;
   }
   *{ box-sizing:border-box; }
   html,body{
     margin:0;
     min-height:100%;
     font-family:'Poppins', sans-serif;
-    color:var(--ink);
+    color:#fbeaff;
     background:
-      radial-gradient(circle at 20% 10%, rgba(255,255,255,.5), transparent 40%),
-      linear-gradient(160deg, var(--bg1), var(--bg2));
+      radial-gradient(circle at 50% 8%, rgba(255,180,255,.25), transparent 45%),
+      linear-gradient(180deg, #170a2e 0%, #3a1258 30%, #8c1f7c 58%, #d94f7a 78%, #ff9a5a 100%);
     overflow-x:hidden;
+    position:relative;
   }
+
+  /* ---------- Synthwave horizon grid ---------- */
+  .horizon{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    height:42vh;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 25%);
+    mask-image:linear-gradient(180deg, transparent, #000 25%);
+  }
+  .horizon::before{
+    content:"";
+    position:absolute;
+    left:-50%; right:-50%; bottom:-10%;
+    height:200%;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,113,206,.55) 0 2px, transparent 2px 60px),
+      repeating-linear-gradient(0deg, rgba(255,113,206,.55) 0 2px, transparent 2px 40px);
+    transform:perspective(220px) rotateX(62deg);
+    transform-origin:bottom;
+    animation:gridMove 6s linear infinite;
+  }
+  .sun{
+    position:fixed;
+    left:50%; top:14%;
+    width:min(46vw, 320px); height:min(46vw, 320px);
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:linear-gradient(180deg, #ffe08a 0%, #ff9a5a 45%, #ff5f9e 100%);
+    box-shadow:0 0 90px rgba(255,140,170,.55);
+    z-index:0;
+    pointer-events:none;
+    background-image:repeating-linear-gradient(180deg, transparent 0 6px, rgba(58,18,88,.35) 6px 10px);
+    -webkit-mask-image:linear-gradient(#000, #000);
+    opacity:.75;
+  }
+  @keyframes gridMove{
+    from{ background-position:0 0, 0 0; }
+    to{ background-position:0 40px, 0 0; }
+  }
+
+  /* ---------- floating hearts ---------- */
+  .heart-field{
+    position:fixed; inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+  }
+  .heart{
+    position:absolute;
+    bottom:-10%;
+    font-size:1.4rem;
+    opacity:0;
+    animation:floatUp linear infinite;
+    filter:drop-shadow(0 0 6px rgba(255,120,190,.7));
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:.85; }
+    90%{ opacity:.6; }
+    100%{ transform:translateY(-115vh) rotate(25deg); opacity:0; }
+  }
+
   .scene{
+    position:relative;
+    z-index:1;
     max-width:720px;
     margin:0 auto;
-    padding:32px 16px 80px;
+    padding:32px 16px 90px;
     text-align:center;
   }
   h1{
-    font-size:2rem;
-    margin:0 0 4px;
-    letter-spacing:.5px;
+    font-family:'Monoton', cursive;
+    font-weight:400;
+    font-size:2.1rem;
+    letter-spacing:2px;
+    margin:0 0 10px;
+    color:#fff;
+    text-shadow:
+      0 0 6px #fff,
+      0 0 16px var(--neon-pink),
+      0 0 32px var(--neon-pink),
+      0 0 54px var(--neon-cyan);
   }
   .subtitle{
     margin:0 0 28px;
-    opacity:.75;
+    opacity:.85;
     font-size:.95rem;
+    text-shadow:0 1px 4px rgba(0,0,0,.35);
   }
 
   /* ---------- Camera ---------- */
@@ -50,25 +129,35 @@
   .camera{
     width:280px;
     max-width:80vw;
-    background:linear-gradient(145deg,#525252,#262626);
+    background:linear-gradient(145deg,#5b3a7a,#1c1030);
     border-radius:22px;
     padding:20px 20px 34px;
     position:relative;
     box-shadow:
-      0 18px 30px rgba(0,0,0,.35),
+      0 18px 40px rgba(0,0,0,.45),
+      0 0 0 2px rgba(255,255,255,.06),
       inset 0 2px 4px rgba(255,255,255,.15);
+  }
+  .stripe{
+    position:absolute;
+    top:0; left:20px; right:20px;
+    height:6px;
+    border-radius:0 0 6px 6px;
+    background:linear-gradient(90deg,var(--neon-pink),var(--neon-gold),var(--neon-cyan),#8c5cff);
+    box-shadow:0 0 10px rgba(255,255,255,.4);
   }
   .camera-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:16px;
+    margin:16px 0 16px;
   }
   .viewfinder{
     width:42px; height:22px;
     background:#111;
     border-radius:4px;
-    border:2px solid #5a5a5a;
+    border:2px solid var(--neon-cyan);
+    box-shadow:0 0 8px rgba(55,231,255,.6);
   }
   .flash{
     width:26px; height:26px;
@@ -85,16 +174,17 @@
   .lens-ring{
     width:132px; height:132px;
     border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #6b6b6b, #101010 70%);
+    background:radial-gradient(circle at 35% 30%, #6b4b8f, #120a20 70%);
     display:flex; align-items:center; justify-content:center;
     box-shadow:
       inset 0 0 16px rgba(0,0,0,.75),
+      0 0 22px rgba(255,46,151,.35),
       0 4px 10px rgba(0,0,0,.4);
   }
   .lens{
     width:92px; height:92px;
     border-radius:50%;
-    background:radial-gradient(circle at 40% 35%, #8ec3ee, #1c3d5a 65%, #08131d);
+    background:radial-gradient(circle at 40% 35%, #a7e6ff, #2a3d6a 65%, #0a0a1d);
     position:relative;
     overflow:hidden;
   }
@@ -110,25 +200,38 @@
   .shutter-btn{
     width:78px; height:78px;
     border-radius:50%;
-    border:4px solid #7a1010;
-    background:radial-gradient(circle at 35% 30%, #ff6a6a, #b31212 70%);
+    border:4px solid #8a0a44;
+    background:radial-gradient(circle at 35% 30%, #ff6ab0, var(--neon-pink) 70%);
     box-shadow:
-      0 6px 0 #7a1010,
+      0 6px 0 #8a0a44,
+      0 0 24px rgba(255,46,151,.65),
       0 12px 20px rgba(0,0,0,.5);
     cursor:pointer;
-    transition:transform .08s ease, box-shadow .08s ease;
+    transition:transform .15s cubic-bezier(.22,1,.36,1), box-shadow .15s ease;
     -webkit-tap-highlight-color:transparent;
+    animation:pulseGlow 2.4s ease-in-out infinite;
+  }
+  .shutter-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+      0 8px 0 #8a0a44,
+      0 0 34px rgba(255,46,151,.85),
+      0 16px 24px rgba(0,0,0,.5);
   }
   .shutter-btn:active{
     transform:translateY(6px);
-    box-shadow:0 0 0 #7a1010, 0 6px 10px rgba(0,0,0,.5);
+    box-shadow:0 0 0 #8a0a44, 0 6px 10px rgba(0,0,0,.5);
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 6px 0 #8a0a44, 0 0 18px rgba(255,46,151,.5), 0 12px 20px rgba(0,0,0,.5); }
+    50%{ box-shadow:0 6px 0 #8a0a44, 0 0 32px rgba(255,46,151,.85), 0 12px 20px rgba(0,0,0,.5); }
   }
   .shutter-hint{
-    color:#eee2c8;
+    color:#f3e5ff;
     font-size:.72rem;
     letter-spacing:1.5px;
     text-transform:uppercase;
-    opacity:.6;
+    opacity:.65;
   }
   .slot{
     position:absolute;
@@ -143,21 +246,23 @@
   /* ---------- Controls ---------- */
   .controls{
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
     justify-content:center;
-    gap:16px;
+    gap:12px;
     margin:26px 0 10px;
     font-size:.9rem;
   }
   #counter{
-    background:rgba(255,255,255,.6);
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.25);
+    backdrop-filter:blur(4px);
     padding:6px 14px;
     border-radius:999px;
     font-weight:600;
   }
-  #resetBtn{
+  .btn-pill{
     border:none;
-    background:var(--ink);
     color:#fff;
     padding:8px 16px;
     border-radius:999px;
@@ -165,10 +270,16 @@
     font-weight:600;
     font-size:.85rem;
     cursor:pointer;
-    opacity:.85;
-    transition:opacity .15s ease, transform .15s ease;
+    opacity:.92;
+    transition:opacity .2s cubic-bezier(.22,1,.36,1), transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease;
   }
-  #resetBtn:hover{ opacity:1; transform:translateY(-1px); }
+  .btn-pill:hover{ opacity:1; transform:translateY(-2px); }
+  .btn-pill:active{ transform:translateY(0); }
+  #resetBtn{ background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.3); }
+  #printAllBtn{
+    background:linear-gradient(120deg, var(--neon-pink), #8c5cff);
+    box-shadow:0 4px 16px rgba(255,46,151,.4);
+  }
 
   /* ---------- Photo tray / pile ---------- */
   .tray{
@@ -182,34 +293,52 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--ink);
-    opacity:.45;
+    color:#fbeaff;
+    opacity:.6;
     font-family:'Caveat', cursive;
     font-size:1.4rem;
     pointer-events:none;
   }
   .polaroid{
+    --hover:1;
     position:absolute;
     top:0; left:50%;
     width:220px;
-    background:#fffdf7;
+    background:var(--paper);
     padding:14px 14px 46px;
     border-radius:3px;
-    box-shadow:0 12px 26px rgba(0,0,0,.3);
-    transform:translate(-50%, -320px) rotate(0deg);
+    box-shadow:0 12px 26px rgba(0,0,0,.4);
+    transform:translate(-50%, -320px) rotate(0deg) scale(1);
     opacity:0;
-    transition:transform .85s cubic-bezier(.17,.67,.32,1.28), opacity .35s ease;
+    transition:
+      transform 1s cubic-bezier(.22,1,.36,1),
+      opacity .4s ease,
+      box-shadow .25s cubic-bezier(.22,1,.36,1);
   }
   .polaroid.drop{
-    transform:translate(calc(-50% + var(--x)), var(--y)) rotate(var(--rot));
+    transform:translate(calc(-50% + var(--x)), var(--y)) rotate(var(--rot)) scale(var(--hover));
     opacity:1;
   }
-  .polaroid img{
+  .polaroid:hover{
+    --hover:1.05;
+    box-shadow:0 20px 34px rgba(0,0,0,.5), 0 0 22px rgba(255,46,151,.35);
+    z-index:999 !important;
+  }
+  .polaroid .frame{
     width:100%;
     height:230px;
-    object-fit:cover;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .polaroid img{
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:auto;
     display:block;
-    background:#000;
     filter:grayscale(1) blur(9px) brightness(.45);
     transition:filter 1.7s ease-out;
   }
@@ -223,31 +352,138 @@
     color:#3a2f28;
     margin-top:12px;
   }
+  .print-one{
+    position:absolute;
+    right:10px;
+    bottom:8px;
+    border:none;
+    background:rgba(58,47,40,.08);
+    color:var(--ink);
+    width:26px; height:26px;
+    border-radius:50%;
+    font-size:.8rem;
+    line-height:1;
+    cursor:pointer;
+    opacity:.55;
+    transition:opacity .2s ease, transform .2s cubic-bezier(.22,1,.36,1), background .2s ease;
+  }
+  .print-one:hover{
+    opacity:1;
+    transform:scale(1.12);
+    background:rgba(255,46,151,.18);
+  }
 
   /* ---------- Flash overlay ---------- */
   .flash-overlay{
     position:fixed;
     inset:0;
-    background:#fff;
+    background:radial-gradient(circle, #fff, #ffd6ec 70%);
     opacity:0;
     pointer-events:none;
     z-index:999;
-    transition:opacity .35s ease;
+    transition:opacity .45s cubic-bezier(.22,1,.36,1);
   }
   .flash-overlay.active{
-    opacity:.9;
+    opacity:.92;
     transition:opacity .04s ease-in;
   }
 
   footer{
+    position:relative;
+    z-index:1;
     text-align:center;
-    opacity:.5;
+    opacity:.65;
     font-size:.75rem;
     margin-top:40px;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;
+    left:50%; bottom:28px;
+    transform:translate(-50%, 20px);
+    background:rgba(30,12,45,.92);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.2);
+    padding:10px 18px;
+    border-radius:999px;
+    font-size:.85rem;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1);
+    z-index:1000;
+  }
+  .toast.show{
+    opacity:1;
+    transform:translate(-50%, 0);
+  }
+
+  /* ---------- Print system ---------- */
+  .print-sheet{ display:none; }
+  @media print{
+    html, body{ background:#fff !important; }
+    body *{ visibility:hidden; }
+    .print-sheet, .print-sheet *{ visibility:visible; }
+    .print-sheet{
+      display:block;
+      position:absolute;
+      top:0; left:0;
+      width:100%;
+      background:#fff;
+    }
+    .print-strip{
+      width:78mm;
+      margin:0 auto 8mm;
+      padding:6mm 5mm;
+      background:#fff;
+      border:1px dashed #bbb;
+      break-inside:avoid;
+      page-break-after:always;
+    }
+    .print-strip:last-child{ page-break-after:auto; }
+    .print-strip h2{
+      font-family:'Caveat', cursive;
+      font-size:20px;
+      text-align:center;
+      margin:0 0 6mm;
+      color:#3a2f28;
+    }
+    .print-photo{
+      background:#111;
+      width:100%;
+      height:60mm;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      margin-bottom:4mm;
+      border:2px solid #222;
+    }
+    .print-photo img{
+      max-width:100%;
+      max-height:100%;
+    }
+    .print-cap{
+      font-family:'Caveat', cursive;
+      font-size:16px;
+      text-align:center;
+      color:#3a2f28;
+      margin:-1mm 0 5mm;
+    }
+    .print-strip footer{
+      text-align:center;
+      font-size:9px;
+      color:#888;
+      margin-top:2mm;
+    }
   }
 </style>
 </head>
 <body>
+
+<div class="horizon"></div>
+<div class="sun"></div>
+<div class="heart-field" id="heartField"></div>
 
 <div class="scene">
   <h1>📸 Photobox</h1>
@@ -255,6 +491,7 @@
 
   <div class="camera-wrap">
     <div class="camera">
+      <div class="stripe"></div>
       <div class="camera-top">
         <div class="viewfinder"></div>
         <div class="flash"></div>
@@ -272,17 +509,20 @@
 
   <div class="controls">
     <span id="counter">0 foto diambil</span>
-    <button id="resetBtn">Reset</button>
+    <button id="printAllBtn" class="btn-pill">🖨️ Cetak Semua</button>
+    <button id="resetBtn" class="btn-pill">Reset</button>
   </div>
 
   <div class="tray" id="tray">
     <div class="tray-empty" id="trayEmpty">belum ada foto yang keluar...</div>
   </div>
 
-  <footer>Made with a lot of memories · Atedoz Photobooth vibes</footer>
+  <footer>Made with a lot of memories · Atedoz Photobooth vibes · 1986 💌</footer>
 </div>
 
 <div class="flash-overlay" id="flashOverlay"></div>
+<div class="toast" id="toast"></div>
+<div class="print-sheet" id="printSheet"></div>
 
 <script>
   // ----- konfigurasi foto -----
@@ -318,11 +558,17 @@
   const counterEl = document.getElementById('counter');
   const shutter = document.getElementById('shutter');
   const resetBtn = document.getElementById('resetBtn');
+  const printAllBtn = document.getElementById('printAllBtn');
   const flashOverlay = document.getElementById('flashOverlay');
+  const heartField = document.getElementById('heartField');
+  const toastEl = document.getElementById('toast');
+  const printSheet = document.getElementById('printSheet');
 
   let deck = [];
   let taken = 0;
   let zCounter = 1;
+  let capturedPhotos = [];
+  let toastTimer = null;
 
   function shuffle(arr){
     const a = arr.slice();
@@ -339,6 +585,13 @@
 
   function updateCounter(){
     counterEl.textContent = `${taken} foto diambil`;
+  }
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
   }
 
   function playShutterSound(){
@@ -360,8 +613,22 @@
 
   function flashScreen(){
     flashOverlay.classList.add('active');
-    setTimeout(() => flashOverlay.classList.remove('active'), 110);
+    setTimeout(() => flashOverlay.classList.remove('active'), 140);
   }
+
+  function spawnHeart(){
+    const heart = document.createElement('span');
+    heart.className = 'heart';
+    heart.textContent = Math.random() > .5 ? '💗' : '✨';
+    heart.style.left = Math.random() * 100 + '%';
+    const duration = 7 + Math.random() * 6;
+    heart.style.animationDuration = duration + 's';
+    heart.style.fontSize = (1 + Math.random() * 1.1) + 'rem';
+    heartField.appendChild(heart);
+    setTimeout(() => heart.remove(), duration * 1000);
+  }
+  setInterval(spawnHeart, 1400);
+  for(let i = 0; i < 5; i++) setTimeout(spawnHeart, i * 500);
 
   function ejectPolaroid(src){
     if (trayEmpty) trayEmpty.remove();
@@ -377,17 +644,35 @@
     card.style.setProperty('--y', offsetY + 'px');
     card.style.zIndex = ++zCounter;
 
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+
     const img = document.createElement('img');
     img.src = src;
     img.alt = 'photobooth photo';
+    frame.appendChild(img);
 
     const cap = document.createElement('figcaption');
     cap.className = 'cap';
-    cap.textContent = CAPTIONS[Math.floor(Math.random() * CAPTIONS.length)];
+    const capText = CAPTIONS[Math.floor(Math.random() * CAPTIONS.length)];
+    cap.textContent = capText;
 
-    card.appendChild(img);
+    const printBtn = document.createElement('button');
+    printBtn.className = 'print-one';
+    printBtn.type = 'button';
+    printBtn.title = 'Cetak foto ini';
+    printBtn.textContent = '🖨️';
+    printBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      printPhotos([{ src, caption: capText }]);
+    });
+
+    card.appendChild(frame);
     card.appendChild(cap);
+    card.appendChild(printBtn);
     tray.appendChild(card);
+
+    capturedPhotos.push({ src, caption: capText });
 
     // trigger drop-in animation
     requestAnimationFrame(() => {
@@ -419,12 +704,58 @@
     tray.appendChild(empty);
     taken = 0;
     zCounter = 1;
+    capturedPhotos = [];
     refillDeck();
     updateCounter();
   }
 
+  // ---------- Printing system ----------
+  function printPhotos(photos){
+    if (!photos || photos.length === 0){
+      showToast('Ambil foto dulu sebelum dicetak ya ✨');
+      return;
+    }
+
+    printSheet.innerHTML = '';
+    const dateStr = new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+
+    // group photos into strips of up to 4, like a real photobooth strip
+    for (let i = 0; i < photos.length; i += 4){
+      const chunk = photos.slice(i, i + 4);
+      const strip = document.createElement('div');
+      strip.className = 'print-strip';
+
+      const heading = document.createElement('h2');
+      heading.textContent = '💌 Photobox ’86 💌';
+      strip.appendChild(heading);
+
+      chunk.forEach(p => {
+        const photoBox = document.createElement('div');
+        photoBox.className = 'print-photo';
+        const img = document.createElement('img');
+        img.src = p.src;
+        photoBox.appendChild(img);
+        strip.appendChild(photoBox);
+
+        const cap = document.createElement('div');
+        cap.className = 'print-cap';
+        cap.textContent = p.caption;
+        strip.appendChild(cap);
+      });
+
+      const foot = document.createElement('footer');
+      foot.textContent = dateStr;
+      strip.appendChild(foot);
+
+      printSheet.appendChild(strip);
+    }
+
+    window.print();
+  }
+
   shutter.addEventListener('click', takePhoto);
   resetBtn.addEventListener('click', resetAll);
+  printAllBtn.addEventListener('click', () => printPhotos(capturedPhotos));
 
   refillDeck();
   updateCounter();
